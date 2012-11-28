@@ -22,7 +22,7 @@ module.exports = (table, options, cb) ->
         parts = []
         params = []
         conditions = options.searchableColumns.forEach (col) ->
-            parts.push "#{col} ILIKE ?"
+            parts.push "#{col}::text ILIKE ?"
             params.push "%#{options.search}%"
         chain = chain.where parts.join(' OR '), params...
 
@@ -32,9 +32,9 @@ module.exports = (table, options, cb) ->
         recordCount = results.count
         pageCount = Math.ceil(recordCount / options.recordsPerPage)
 
-        if options.sortBy?
+        if options.sortBy? and options.sortBy isnt ''
             direction = if options.sortAscending then 'ASC' else 'DESC'
-            chain = chain.order "\"#{options.order}\" #{direction}"
+            chain = chain.order "\"#{options.sortBy}\" #{direction}"
 
         if options.page?
             chain = chain
