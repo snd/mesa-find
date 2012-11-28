@@ -1,6 +1,6 @@
 # mesa-find
 
-mesa-find enables pagination, multi-column-searching and sorting on mesa tables.
+mesa-find enables pagination, multi-column-searching and sorting on mesa tables
 
 ### install
 
