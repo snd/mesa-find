@@ -7,7 +7,7 @@ module.exports = (table, options, cb) ->
     if options.page?
         page = parseInt options.page, 10
 
-        if isNan page
+        if isNaN page
             return process.nextTick -> cb new Error "page must be convertible to a number but is #{options.page}"
 
         if page < 1
