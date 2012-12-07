@@ -1,13 +1,29 @@
 {
-    "author": "Maximilian Krüger <kruemaxi@googlemail.com> (http://github.com/snd)",
     "name": "mesa-find",
-    "description": "mesa-find enables multi-column-searching, pagination and sorting on mesa tables",
     "version": "0.1.1",
-    "dependencies": {
-        "coffee-script": "1.4.0"
+    "description": "mesa-find enables multi-column-searching, pagination and sorting on mesa tables",
+    "homepage": "http://github.com/snd/mesa-find",
+    "author": {
+        "name": "Maximilian Krüger",
+        "email": "kruemaxi@gmail.com",
+        "url": "http://github.com/snd"
+    },
+    "bugs": {
+        "url": "http://github.com/snd/mesa-find/issues",
+        "email": "kruemaxi@gmail.com"
     },
     "repository": {
         "type": "git",
         "url": "git://github.com/snd/mesa-find.git"
+    },
+    "licenses": {
+        "type": "MIT",
+        "url": "git://github.com/snd/mesa-find/LICENSE"
+    },
+    "engines": {
+        "node": ">=0.8.5"
+    },
+    "dependencies": {
+        "coffee-script": "1.4.0"
     }
 }
