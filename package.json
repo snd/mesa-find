@@ -1,7 +1,7 @@
 {
     "name": "mesa-find",
-    "version": "0.1.1",
-    "description": "mesa-find enables multi-column-searching, pagination and sorting on mesa tables",
+    "version": "0.2.0",
+    "description": "pagination, multi-column-searching and sorting for mesa tables",
     "homepage": "http://github.com/snd/mesa-find",
     "author": {
         "name": "Maximilian Krüger",
@@ -24,6 +24,13 @@
         "node": ">=0.8.5"
     },
     "dependencies": {
-        "coffee-script": "1.4.0"
+    },
+    "devDependencies": {
+        "coffee-script": "1.6.3"
+    },
+    "main": "src/mesa-find",
+    "scripts": {
+        "prepublish": "coffee --bare --compile --output src src/*.coffee",
+        "postpublish": "rm src/*.js"
     }
 }
