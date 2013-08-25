@@ -26,25 +26,29 @@ module.exports = (table, options, cb) ->
             params.push "%#{options.search}%"
         chain = chain.where parts.join(' OR '), params...
 
-    chain.select('count(*)').first (err, results) ->
-        return cb err if err?
-
-        recordCount = results.count
-        pageCount = Math.ceil(recordCount / options.recordsPerPage)
-
-        if options.sortBy? and options.sortBy isnt ''
-            direction = if options.sortAscending then 'ASC' else 'DESC'
-            chain = chain.order "\"#{options.sortBy}\" #{direction}"
-
-        if options.page?
-            chain = chain
-                .limit(options.recordsPerPage)
-                .offset((options.page - 1) * options.recordsPerPage)
-
-        chain.find (err, records) =>
+    chain
+        # remove grouping
+        .group()
+        .select('count(*)')
+        .first (err, results) ->
             return cb err if err?
 
-            cb null,
-                records: records
-                pageCount: pageCount
-                recordCount: recordCount
+            recordCount = results.count
+            pageCount = Math.ceil(recordCount / options.recordsPerPage)
+
+            if options.sortBy? and options.sortBy isnt ''
+                direction = if options.sortAscending then 'ASC' else 'DESC'
+                chain = chain.order "\"#{options.sortBy}\" #{direction}"
+
+            if options.page?
+                chain = chain
+                    .limit(options.recordsPerPage)
+                    .offset((options.page - 1) * options.recordsPerPage)
+
+            chain.find (err, records) =>
+                return cb err if err?
+
+                cb null,
+                    records: records
+                    pageCount: pageCount
+                    recordCount: recordCount
