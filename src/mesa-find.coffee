@@ -27,8 +27,6 @@ module.exports = (table, options, cb) ->
         chain = chain.where parts.join(' OR '), params...
 
     chain
-        # remove grouping
-        .group()
         .select('count(*)')
         .first (err, results) ->
             return cb err if err?
