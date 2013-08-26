@@ -1,6 +1,6 @@
 {
     "name": "mesa-find",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "pagination, multi-column-searching and sorting for mesa tables",
     "homepage": "http://github.com/snd/mesa-find",
     "author": {
