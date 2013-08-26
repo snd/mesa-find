@@ -57,7 +57,7 @@ query.find(function(err, records) {
     // ...
 });
 
-query.getRecordCountAndPageCount(function(err, results) {
+query.getRecordCountAndPageCount(recordsPerPage, function(err, results) {
     console.log(results.pageCount);
     console.log(results.recordCount);
 });
