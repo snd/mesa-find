@@ -13,7 +13,7 @@ npm install mesa-find
 put this line in the dependencies section of your `package.json`:
 
 ```
-"mesa-find": "0.2.0"
+"mesa-find": "0.3.0"
 ```
 
 then run:
@@ -26,8 +26,17 @@ npm install
 
 ```javascript
 var mesa = require('mesa');
-var find = require('mesa-find');
+var mesaFind = require('mesa-find');
 var pg = require('pg');
+
+// mixin
+
+mesa.search = mesaFind.search;
+mesa.sort = mesaFind.sort;
+mesa.paginate = mesaFind.paginate;
+mesa.getRecordCountAndPageCount = mesaFind.getRecordCountAndPageCount;
+
+// set connection
 
 var mesaWithConnection = mesa.connection(function(cb) {
     pg.connect('tcp://username@localhost/database', cb);
@@ -35,20 +44,24 @@ var mesaWithConnection = mesa.connection(function(cb) {
 
 var userTable = mesaWithConnection.table('user');
 
-find(userTable, {
-    page: 3,                        // optional (pages start at 1)
-    recordsPerPage: 50,             // required when page is set
+var searchableColumns = ['name'];
+var recordsPerPage = 50;
+var sortAscending = false
 
-    search: 'ann',                  // optional, has no effect when it is the empty string
-    searchableColumns: ['name'],    // defaults to [] which has no effect
+var query = userTable
+    .search(searchableColumns, 'ann')
+    .paginate(recordsPerPage, 3)
+    .sort('age', sortAscending);
 
-    sortBy: 'age',                  // optional
-    sortAscending: false            // defaults to true
-}, function(err, results) {
+query.find(function(err, records) {
+    // ...
+});
+
+query.getRecordCountAndPageCount(function(err, results) {
     console.log(results.pageCount);
     console.log(results.recordCount);
-    console.log(results.records);
 });
+
 ```
 
 ### license: MIT
