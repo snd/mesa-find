@@ -29,7 +29,7 @@ module.exports =
             .offset((page - 1) * recordsPerPage)
 
     getRecordCountAndPageCount: (recordsPerPage, cb) ->
-        this.select('count(*)')
+        this.select('count(1)')
             .first (err, results) ->
                 return cb err if err?
 
